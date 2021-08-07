@@ -1,0 +1,8 @@
+-- Case Study Query 1: What is the total amount each customer spent at the restaurant?
+SELECT
+	a.customer_id,	
+    SUM(B.price) as Total_amount_spent 	
+FROM dannys_diner.sales a, dannys_diner.menu b
+WHERE A.product_id = B.product_id
+GROUP BY customer_id
+ORDER BY customer_id;
