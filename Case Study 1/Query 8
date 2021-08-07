@@ -1,0 +1,8 @@
+-- Case Study Query 8: What is the total items and amount spent for each member before they became a member?
+SELECT
+  	a.customer_id,count(c.product_name), sum(c.price)
+FROM dannys_diner.sales a, dannys_diner.members b, dannys_diner.menu c
+where a.customer_id = b.customer_id
+and   a.product_id  = c.product_id
+and   a.order_date < b.join_date
+group by 1;
