@@ -1,0 +1,12 @@
+-- Case Study Query 5: Which item was the most popular for each customer?
+select distinct customer_id, product_name 
+from 
+(select customer_id, product_name, dense_rank() over (partition by customer_id order by No_of_times desc) as Ranking
+from(
+SELECT
+	b.customer_id, a.product_name, count(b.order_date) as No_of_times
+FROM dannys_diner.menu a, dannys_diner.sales b
+where a.product_id = b.product_id
+GROUP BY 1,2
+order by 1) t1 ) t2
+where Ranking = 1;
