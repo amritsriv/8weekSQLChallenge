@@ -1,0 +1,10 @@
+-- Case Study Query 3:What was the first item from the menu purchased by each customer?
+SELECT distinct
+	a.customer_id,
+    b.product_id,
+    b.product_name
+FROM dannys_diner.sales a
+RIGHT JOIN dannys_diner.menu b
+on a.product_id = b.product_id
+where a.order_date in (SELECT MIN(order_date) FROM dannys_diner.sales)
+limit 3;
