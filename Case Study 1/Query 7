@@ -1,0 +1,10 @@
+-- Case Study Query 7: Which item was purchased just before the customer became a member?
+SELECT customer_id,join_date,order_date,product_name
+FROM
+(SELECT
+  	a.customer_id,b.join_date,a.order_date,a.product_id, c.product_name,dense_rank() over (partition by a.customer_id order by a.order_date desc) as Ranking
+FROM dannys_diner.sales a, dannys_diner.members b, dannys_diner.menu c
+where a.customer_id = b.customer_id
+and   a.product_id  = c.product_id
+and   a.order_date < b.join_date) First_order
+WHERE Ranking = 1;
